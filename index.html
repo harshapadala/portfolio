@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Padala SriHarsha — AI/ML Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0e0f;
+    --bg-raised:#101514;
+    --surface:#161c1b;
+    --border:#2a3331;
+    --border-soft:#1d2422;
+    --text:#e8e6e1;
+    --text-dim:#9aa39f;
+    --text-faint:#5e6a66;
+    --green:#7dd3a8;
+    --green-dim:#4d8a6c;
+    --blue:#6fa8c0;
+    --amber:#d3a87d;
+    --mono:'JetBrains Mono', monospace;
+    --sans:'Inter', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:'';
+    position:fixed;inset:0;
+    background-image:
+      linear-gradient(rgba(125,211,168,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(125,211,168,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events:none;
+    z-index:0;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--green-dim);color:var(--bg);}
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px;position:relative;z-index:1;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,14,15,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;}
+  .nav-mark{font-family:var(--mono);font-weight:700;font-size:14px;color:var(--green);letter-spacing:0.02em;}
+  .nav-mark span{color:var(--text-faint);}
+  .nav-links{display:flex;gap:28px;font-family:var(--mono);font-size:13px;color:var(--text-dim);}
+  .nav-links a{transition:color .15s;}
+  .nav-links a:hover{color:var(--green);}
+  .nav-toggle{display:none;}
+
+  /* ---------- HERO ---------- */
+  header.hero{padding:76px 0 64px;border-bottom:1px solid var(--border-soft);}
+  .hero-eyebrow{
+    font-family:var(--mono);font-size:12px;color:var(--green);
+    display:flex;align-items:center;gap:8px;margin-bottom:22px;letter-spacing:0.04em;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+  .model-card{
+    font-family:var(--mono);
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:26px 28px;
+    font-size:13.5px;
+    color:var(--text-dim);
+    overflow-x:auto;
+  }
+  .model-card .line{white-space:pre;}
+  .model-card .k{color:var(--text-faint);}
+  .model-card .v{color:var(--text);}
+  .model-card .accent{color:var(--green);}
+  .model-card .accent2{color:var(--blue);}
+  .model-card .rule{color:var(--border);}
+
+  .hero-name{
+    font-family:var(--mono);
+    font-size:clamp(34px, 5.5vw, 54px);
+    font-weight:800;
+    margin:28px 0 6px;
+    letter-spacing:-0.01em;
+    color:var(--text);
+  }
+  .hero-name .cursor{
+    display:inline-block;width:0.5ch;background:var(--green);
+    animation:blink 1s step-end infinite;margin-left:4px;
+  }
+  @keyframes blink{0%,49%{opacity:1;}50%,100%{opacity:0;}}
+
+  .hero-role{font-family:var(--mono);color:var(--green);font-size:16px;margin-bottom:18px;}
+  .hero-desc{max-width:600px;color:var(--text-dim);font-size:16px;margin-bottom:30px;}
+  .hero-desc strong{color:var(--text);font-weight:600;}
+
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:13px;font-weight:500;
+    padding:11px 20px;border-radius:5px;
+    border:1px solid var(--border);
+    transition:all .15s;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary{background:var(--green);color:#0a0e0f;border-color:var(--green);font-weight:600;}
+  .btn-primary:hover{background:#92e0b8;transform:translateY(-1px);}
+  .btn-ghost{color:var(--text);}
+  .btn-ghost:hover{border-color:var(--green);color:var(--green);transform:translateY(-1px);}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:64px 0;border-bottom:1px solid var(--border-soft);}
+  .section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:36px;}
+  .section-tag{font-family:var(--mono);font-size:12px;color:var(--text-faint);}
+  .section-title{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--text);}
+  .section-title .br{color:var(--green);}
+  .section-lede{color:var(--text-dim);max-width:620px;margin-bottom:36px;font-size:15px;}
+
+  /* ---------- PROJECTS ---------- */
+  .project{
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:var(--surface);
+    margin-bottom:22px;
+    overflow:hidden;
+    transition:border-color .2s, transform .2s;
+  }
+  .project:hover{border-color:var(--green-dim);transform:translateY(-2px);}
+  .project-grid{display:grid;grid-template-columns:240px 1fr;}
+  .project-visual{
+    background:
+      repeating-linear-gradient(135deg, rgba(125,211,168,0.05) 0 2px, transparent 2px 14px),
+      var(--bg-raised);
+    border-right:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    min-height:180px;position:relative;
+  }
+  .project-visual .ph-icon{font-size:34px;opacity:0.85;}
+  .project-visual .ph-label{
+    position:absolute;bottom:12px;left:12px;right:12px;
+    font-family:var(--mono);font-size:10px;color:var(--text-faint);
+    text-align:center;letter-spacing:0.03em;
+  }
+  .project-body{padding:24px 26px;}
+  .project-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+  .project-name{font-family:var(--mono);font-size:17px;font-weight:700;color:var(--text);}
+  .project-status{
+    font-family:var(--mono);font-size:10.5px;padding:3px 9px;border-radius:20px;
+    border:1px solid; white-space:nowrap; letter-spacing:0.03em;
+  }
+  .status-live{color:var(--green);border-color:var(--green-dim);background:rgba(125,211,168,0.07);}
+  .status-local{color:var(--amber);border-color:#8a6d4d;background:rgba(211,168,125,0.07);}
+  .status-analysis{color:var(--blue);border-color:#3d6b7d;background:rgba(111,168,192,0.07);}
+
+  .project-desc{color:var(--text-dim);font-size:14.5px;margin-bottom:16px;}
+  .project-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .tag{
+    font-family:var(--mono);font-size:11px;color:var(--text-dim);
+    background:var(--bg-raised);border:1px solid var(--border-soft);
+    padding:4px 9px;border-radius:4px;
+  }
+  .project-stats{display:flex;gap:22px;margin-bottom:18px;flex-wrap:wrap;}
+  .stat{font-family:var(--mono);}
+  .stat-val{color:var(--green);font-size:15px;font-weight:700;}
+  .stat-label{color:var(--text-faint);font-size:10.5px;letter-spacing:0.02em;}
+  .project-links{display:flex;gap:10px;flex-wrap:wrap;}
+  .link-btn{
+    font-family:var(--mono);font-size:12.5px;color:var(--text);
+    border:1px solid var(--border);padding:8px 14px;border-radius:5px;
+    display:inline-flex;align-items:center;gap:6px;transition:all .15s;
+  }
+  .link-btn:hover{border-color:var(--green);color:var(--green);}
+  .link-btn.disabled{color:var(--text-faint);cursor:default;opacity:0.7;}
+  .link-btn.disabled:hover{border-color:var(--border);color:var(--text-faint);}
+
+  .run-howto{
+    margin-top:14px;
+    background:var(--bg-raised);
+    border:1px solid var(--border-soft);
+    border-radius:5px;
+    padding:12px 14px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-faint);
+    display:none;
+  }
+  .run-howto.open{display:block;}
+  .run-howto .cmd{color:var(--green);}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(220px,1fr));gap:18px;}
+  .skill-block{border:1px solid var(--border);border-radius:7px;padding:18px 20px;background:var(--surface);}
+  .skill-block h4{font-family:var(--mono);font-size:12px;color:var(--green);margin-bottom:10px;letter-spacing:0.04em;}
+  .skill-block p{color:var(--text-dim);font-size:13.5px;}
+
+  /* ---------- RESUME ---------- */
+  .resume-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;}
+  .resume-col h4{
+    font-family:var(--mono);font-size:12px;color:var(--blue);letter-spacing:0.04em;
+    margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border-soft);
+  }
+  .edu-item, .exp-item{margin-bottom:18px;}
+  .edu-item .row, .exp-item .row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .edu-item strong, .exp-item strong{font-size:14.5px;color:var(--text);}
+  .edu-item .yr, .exp-item .yr{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);white-space:nowrap;}
+  .edu-item .sub, .exp-item .sub{color:var(--text-dim);font-size:13px;margin-top:2px;}
+
+  .pub-card{
+    border:1px solid var(--border);border-radius:6px;padding:14px 16px;
+    background:var(--bg-raised);margin-bottom:14px;font-size:13.5px;
+  }
+  .pub-card .pub-tag{font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:0.04em;margin-bottom:6px;display:block;}
+  .pub-card .pub-title{color:var(--text);font-weight:600;margin-bottom:4px;}
+  .pub-card .pub-venue{color:var(--text-faint);font-size:12px;}
+
+  .cert-list{list-style:none;}
+  .cert-list li{
+    font-size:13.5px;color:var(--text-dim);padding:8px 0;
+    border-bottom:1px solid var(--border-soft);
+    display:flex;gap:8px;align-items:baseline;
+  }
+  .cert-list li::before{content:'›';color:var(--green);font-family:var(--mono);}
+  .cert-list li:last-child{border-bottom:none;}
+
+  .skillbar-group{margin-bottom:16px;}
+  .skillbar-group .lbl{font-family:var(--mono);font-size:12px;color:var(--text-dim);margin-bottom:6px;}
+  .skillbar-tags{display:flex;flex-wrap:wrap;gap:6px;}
+
+  /* ---------- CONTACT ---------- */
+  footer{padding:64px 0 50px;}
+  .contact-card{
+    border:1px solid var(--border);border-radius:10px;
+    background:linear-gradient(160deg, var(--surface), var(--bg-raised));
+    padding:44px 38px;text-align:center;
+  }
+  .contact-card h2{font-family:var(--mono);font-size:24px;margin-bottom:10px;color:var(--text);}
+  .contact-card h2 .br{color:var(--green);}
+  .contact-card p{color:var(--text-dim);margin-bottom:26px;font-size:14.5px;}
+  .contact-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+  .foot-bottom{text-align:center;margin-top:40px;font-family:var(--mono);font-size:11.5px;color:var(--text-faint);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:760px){
+    .nav-links{display:none;}
+    .project-grid{grid-template-columns:1fr;}
+    .project-visual{min-height:120px;border-right:none;border-bottom:1px solid var(--border);}
+    .resume-layout{grid-template-columns:1fr;}
+  }
+
+  /* a11y */
+  a:focus-visible, button:focus-visible{outline:2px solid var(--green);outline-offset:2px;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-mark">srih<span>@</span>portfolio<span>:~$</span></div>
+    <div class="nav-links">
+      <a href="#projects">projects</a>
+      <a href="#skills">skills</a>
+      <a href="#resume">resume</a>
+      <a href="#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow"><span class="dot"></span> AVAILABLE FOR OPPORTUNITIES — HYDERABAD, INDIA</div>
+
+    <div class="model-card">
+      <div class="line"><span class="k">candidate</span>  = <span class="accent">Padala SriHarsha</span></div>
+      <div class="line"><span class="k">role</span>       = <span class="v">"AI / ML Engineer"</span></div>
+      <div class="line"><span class="k">focus</span>      = [<span class="accent2">"NLP"</span>, <span class="accent2">"Generative AI"</span>, <span class="accent2">"RAG"</span>, <span class="accent2">"Computer Vision"</span>]</div>
+      <div class="line"><span class="k">education</span>  = <span class="v">"B.E. AI & Data Science, CBIT — CGPA 7.7"</span></div>
+      <div class="line"><span class="k">published</span>  = <span class="v">"IEEE IDCIoT 2025"</span></div>
+      <div class="line rule">────────────────────────────────────────────</div>
+      <div class="line"><span class="k">status</span>     = <span class="accent">"actively building"</span></div>
+    </div>
+
+    <h1 class="hero-name">SriHarsha Padala<span class="cursor">&nbsp;</span></h1>
+    <div class="hero-role">// turning research papers into things that actually run</div>
+    <p class="hero-desc">
+      Recent AI &amp; Data Science graduate who builds <strong>end-to-end machine learning systems</strong> —
+      from a CNN-Transformer image captioner published at IEEE IDCIoT, to RAG pipelines, recommendation
+      engines, and predictive models. Every project below is real, runnable code — not slides.
+    </p>
+
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#projects">View projects ↓</a>
+      <a class="btn btn-ghost" href="https://github.com/harshapadala" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn-ghost" id="resume-link" href="#" target="_blank" rel="noopener">Download résumé ↓</a>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">02</span>
+      <span class="section-title">$ ls <span class="br">./projects</span></span>
+    </div>
+    <p class="section-lede">
+      Five projects spanning generative AI, NLP, and classical ML. Each one runs locally —
+      click "How to run" for the exact commands, since none are deployed to a public server yet.
+    </p>
+
+    <!-- PROJECT 1: RAG Resume Bot -->
+    <div class="project">
+      <div class="project-grid">
+        <div class="project-visual">
+          <div class="ph-icon">◧⟡◨</div>
+          <div class="ph-label">[ screenshot placeholder — swap in app GIF ]</div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <span class="project-name">RAG Resume Bot</span>
+            <span class="project-status status-local">● runs locally</span>
+          </div>
+          <p class="project-desc">
+            Upload any résumé PDF and chat with it. Built on a retrieval-augmented generation
+            pipeline that chunks and embeds the document, then answers questions, extracts skills,
+            summarizes experience, and generates an ATS-style score with improvement suggestions —
+            all with source chunks shown for transparency.
+          </p>
+          <div class="project-meta">
+            <span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">LangChain</span>
+            <span class="tag">Vector Search</span><span class="tag">RAG</span>
+          </div>
+          <div class="project-stats">
+            <div class="stat"><div class="stat-val">8</div><div class="stat-label">QUICK ACTIONS</div></div>
+            <div class="stat"><div class="stat-val">PDF→Chat</div><div class="stat-label">INPUT → OUTPUT</div></div>
+          </div>
+          <div class="project-links">
+            <a class="link-btn" href="https://github.com/harshapadala/RAG_RESUME_BOT" target="_blank" rel="noopener">⌥ View code</a>
+            <button class="link-btn" onclick="toggleHowto('howto-1')">▶ How to run</button>
+          </div>
+          <div class="run-howto" id="howto-1">
+            <span class="cmd">$</span> git clone https://github.com/harshapadala/RAG_RESUME_BOT.git<br>
+            <span class="cmd">$</span> cd RAG_RESUME_BOT && pip install -r requirements.txt<br>
+            <span class="cmd">$</span> streamlit run app.py
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2: Image Captioning -->
+    <div class="project">
+      <div class="project-grid">
+        <div class="project-visual">
+          <div class="ph-icon">▤ → "..."</div>
+          <div class="ph-label">[ screenshot placeholder — swap in sample caption output ]</div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <span class="project-name">Automated Image Captioning</span>
+            <span class="project-status status-local">● runs locally</span>
+          </div>
+          <p class="project-desc">
+            A CNN encoder + Transformer decoder that looks at an image and writes a caption for it.
+            Trained on Flickr8k with custom tokenization, vocabulary building, and sequence padding.
+            Also includes a second notebook exploring a ViT-GPT2 approach for comparison. Served
+            through a small Flask app for live demos. This work was published at IEEE IDCIoT 2025.
+          </p>
+          <div class="project-meta">
+            <span class="tag">PyTorch</span><span class="tag">CNN</span><span class="tag">Transformers</span>
+            <span class="tag">Flask</span><span class="tag">NLP</span>
+          </div>
+          <div class="project-stats">
+            <div class="stat"><div class="stat-val">0.62</div><div class="stat-label">BLEU-4 SCORE</div></div>
+            <div class="stat"><div class="stat-val">IEEE</div><div class="stat-label">IDCIoT 2025</div></div>
+          </div>
+          <div class="project-links">
+            <a class="link-btn" href="https://github.com/harshapadala/image_caption" target="_blank" rel="noopener">⌥ View code</a>
+            <button class="link-btn" onclick="toggleHowto('howto-2')">▶ How to run</button>
+          </div>
+          <div class="run-howto" id="howto-2">
+            <span class="cmd">$</span> git clone https://github.com/harshapadala/image_caption.git<br>
+            <span class="cmd">$</span> cd image_caption && pip install -r requirements.txt<br>
+            <span class="cmd">$</span> python app.py &nbsp;<span style="color:var(--text-faint)"># Flask app — open localhost:5000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3: Online Retail Recommendation -->
+    <div class="project">
+      <div class="project-grid">
+        <div class="project-visual">
+          <div class="ph-icon">▦ ▥ ▤</div>
+          <div class="ph-label">[ chart placeholder — swap in dashboard screenshot ]</div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <span class="project-name">Online Retail Recommendation System</span>
+            <span class="project-status status-local">● runs locally</span>
+          </div>
+          <p class="project-desc">
+            A recommendation engine built on real transaction data — collaborative filtering plus
+            matrix factorization to surface personalized product suggestions. Includes a full EDA
+            pass (sales by month, top countries, popular items) and hyperparameter tuning to improve
+            recommendation quality.
+          </p>
+          <div class="project-meta">
+            <span class="tag">Python</span><span class="tag">Collaborative Filtering</span>
+            <span class="tag">Matrix Factorization</span><span class="tag">Pandas</span>
+          </div>
+          <div class="project-stats">
+            <div class="stat"><div class="stat-val">50K+</div><div class="stat-label">TRANSACTIONS</div></div>
+            <div class="stat"><div class="stat-val">Cross-Val</div><div class="stat-label">TUNING METHOD</div></div>
+          </div>
+          <div class="project-links">
+            <a class="link-btn" href="https://github.com/harshapadala/Online--retail-recommendation-system" target="_blank" rel="noopener">⌥ View code</a>
+            <button class="link-btn" onclick="toggleHowto('howto-3')">▶ How to run</button>
+          </div>
+          <div class="run-howto" id="howto-3">
+            <span class="cmd">$</span> git clone https://github.com/harshapadala/Online--retail-recommendation-system.git<br>
+            <span class="cmd">$</span> cd Online--retail-recommendation-system<br>
+            <span style="color:var(--text-faint)"># open the notebook / CODE-ONLINE RETAIL.pdf for the full walkthrough</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 4: Customer Churn -->
+    <div class="project">
+      <div class="project-grid">
+        <div class="project-visual">
+          <div class="ph-icon">⤬ ⤫ ✓</div>
+          <div class="ph-label">[ screenshot placeholder — swap in app UI ]</div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <span class="project-name">Customer Churn Prediction</span>
+            <span class="project-status status-local">● runs locally</span>
+          </div>
+          <p class="project-desc">
+            An interactive Streamlit app that predicts whether a customer is likely to churn based
+            on purchase behavior — age, purchase amount, and purchase frequency feed a Random Forest
+            classifier trained with proper feature engineering.
+          </p>
+          <div class="project-meta">
+            <span class="tag">Python</span><span class="tag">Random Forest</span>
+            <span class="tag">Streamlit</span><span class="tag">scikit-learn</span>
+          </div>
+          <div class="project-stats">
+            <div class="stat"><div class="stat-val">3</div><div class="stat-label">INPUT FEATURES</div></div>
+            <div class="stat"><div class="stat-val">Binary</div><div class="stat-label">CHURN / NO CHURN</div></div>
+          </div>
+          <div class="project-links">
+            <a class="link-btn" href="https://github.com/harshapadala/CUSTOMER_BEHAVIOUR" target="_blank" rel="noopener">⌥ View code</a>
+            <button class="link-btn" onclick="toggleHowto('howto-4')">▶ How to run</button>
+          </div>
+          <div class="run-howto" id="howto-4">
+            <span class="cmd">$</span> git clone https://github.com/harshapadala/CUSTOMER_BEHAVIOUR.git<br>
+            <span class="cmd">$</span> cd CUSTOMER_BEHAVIOUR && pip install -r requirements.txt<br>
+            <span class="cmd">$</span> streamlit run app.py
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 5: Forest Fire -->
+    <div class="project">
+      <div class="project-grid">
+        <div class="project-visual">
+          <div class="ph-icon">🜂 ▲</div>
+          <div class="ph-label">[ chart placeholder — swap in regression plots ]</div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <span class="project-name">Forest Fire Prediction &amp; Risk Analysis</span>
+            <span class="project-status status-analysis">● data analysis</span>
+          </div>
+          <p class="project-desc">
+            Exploratory analysis and a Random Forest regression model over meteorological data to
+            predict burn area and surface seasonal / spatial fire-risk patterns. Includes feature
+            importance analysis, correlation matrices, and LOESS-smoothed scatterplots — written
+            in R, with a full project report.
+          </p>
+          <div class="project-meta">
+            <span class="tag">R</span><span class="tag">Random Forest</span>
+            <span class="tag">EDA</span><span class="tag">Data Visualization</span>
+          </div>
+          <div class="project-stats">
+            <div class="stat"><div class="stat-val">94%</div><div class="stat-label">PREDICTION ACCURACY</div></div>
+            <div class="stat"><div class="stat-val">5</div><div class="stat-label">VISUALIZATIONS</div></div>
+          </div>
+          <div class="project-links">
+            <a class="link-btn" href="https://github.com/harshapadala/Forest-fire-data-analysis" target="_blank" rel="noopener">⌥ View code</a>
+            <button class="link-btn" onclick="toggleHowto('howto-5')">▶ How to run</button>
+          </div>
+          <div class="run-howto" id="howto-5">
+            <span class="cmd">$</span> git clone https://github.com/harshapadala/Forest-fire-data-analysis.git<br>
+            <span style="color:var(--text-faint)"># open "forest fire data_analysis.R" in RStudio and run top to bottom</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">03</span>
+      <span class="section-title">$ cat <span class="br">./skills.json</span></span>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-block">
+        <h4>LANGUAGES</h4>
+        <p>Python, SQL, R, Java</p>
+      </div>
+      <div class="skill-block">
+        <h4>ML / DEEP LEARNING</h4>
+        <p>Regression, Classification, Clustering, CNNs, Transformers, Sequence Models, Transfer Learning</p>
+      </div>
+      <div class="skill-block">
+        <h4>GENERATIVE AI</h4>
+        <p>LLMs, Prompt Engineering, RAG, AI Agents, LangChain, LlamaIndex</p>
+      </div>
+      <div class="skill-block">
+        <h4>NLP</h4>
+        <p>Tokenization, Embeddings, Text Classification, NER, Semantic Search</p>
+      </div>
+      <div class="skill-block">
+        <h4>FRAMEWORKS</h4>
+        <p>PyTorch, TensorFlow, Scikit-learn, Hugging Face Transformers, Pandas, NumPy</p>
+      </div>
+      <div class="skill-block">
+        <h4>MLOPS &amp; DEPLOYMENT</h4>
+        <p>Docker, Git, GitHub Actions, FastAPI, MLflow (basic), CI/CD concepts</p>
+      </div>
+      <div class="skill-block">
+        <h4>DATABASES &amp; CLOUD</h4>
+        <p>MySQL, ChromaDB (basic), Vector DB concepts, GCP, AWS fundamentals</p>
+      </div>
+      <div class="skill-block">
+        <h4>TOOLS</h4>
+        <p>Power BI, Excel, Jupyter, Google Colab</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="resume">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">04</span>
+      <span class="section-title">$ cat <span class="br">./resume.md</span></span>
+    </div>
+    <p class="section-lede">Highlights below — or grab the full PDF.</p>
+
+    <div class="resume-layout">
+      <div class="resume-col">
+        <h4>EDUCATION</h4>
+        <div class="edu-item">
+          <div class="row"><strong>Chaitanya Bharathi Institute of Technology (CBIT)</strong><span class="yr">2022 – 2025</span></div>
+          <div class="sub">B.E. in Artificial Intelligence &amp; Data Science — CGPA 7.7/10</div>
+        </div>
+        <div class="edu-item">
+          <div class="row"><strong>TKR College of Engineering</strong><span class="yr">2019 – 2022</span></div>
+          <div class="sub">Diploma in Engineering — GPA 8.7/10</div>
+        </div>
+
+        <h4 style="margin-top:30px;">EXPERIENCE</h4>
+        <div class="exp-item">
+          <div class="row"><strong>DRDL, Ministry of Defence</strong><span class="yr">Internship</span></div>
+          <div class="sub">Worked on AI and data-driven applications involving ML workflows — data preprocessing, model development, testing, and performance evaluation alongside technical teams.</div>
+        </div>
+
+        <h4 style="margin-top:30px;">PUBLICATION</h4>
+        <div class="pub-card">
+          <span class="pub-tag">IEEE CONFERENCE PAPER</span>
+          <div class="pub-title">Deep Learning for Automated Image Captioning</div>
+          <div class="pub-venue">IDCIoT 2025, REVA University</div>
+        </div>
+      </div>
+
+      <div class="resume-col">
+        <h4>CERTIFICATIONS</h4>
+        <ul class="cert-list">
+          <li>Data Science Certification — Infosys Springboard</li>
+          <li>Machine Learning Fundamentals</li>
+          <li>Deep Learning and NLP Courses</li>
+          <li>NCC 'A' Certificate</li>
+        </ul>
+
+        <h4 style="margin-top:30px;">QUICK STATS</h4>
+        <div class="skillbar-group">
+          <div class="lbl">core_stack</div>
+          <div class="skillbar-tags">
+            <span class="tag">PyTorch</span><span class="tag">FastAPI</span><span class="tag">Scikit-learn</span>
+          </div>
+        </div>
+        <div class="skillbar-group">
+          <div class="lbl">currently_exploring</div>
+          <div class="skillbar-tags">
+            <span class="tag">AI Agents</span><span class="tag">Vector DBs</span><span class="tag">RAG at scale</span>
+          </div>
+        </div>
+
+        <a class="btn btn-primary" id="resume-link-2" href="#" target="_blank" rel="noopener" style="margin-top:24px;width:100%;justify-content:center;">↓ Download full résumé (PDF)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-card">
+      <h2>$ open <span class="br">conversation</span></h2>
+      <p>Open to AI/ML engineering roles, internships, and collaboration on interesting problems.</p>
+      <div class="contact-row">
+        <a class="btn btn-primary" href="mailto:srihrshapadala@gmail.com">✉ Email me</a>
+        <a class="btn btn-ghost" href="https://github.com/harshapadala" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-ghost" id="linkedin-link" href="#" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="foot-bottom">Hyderabad, India · +91 7995563041 · built with intent, not a template</div>
+  </div>
+</footer>
+
+<script>
+  function toggleHowto(id){
+    document.getElementById(id).classList.toggle('open');
+  }
+  // Placeholder links — update these two with your real LinkedIn URL and resume file path
+  document.getElementById('linkedin-link').href = 'https://www.linkedin.com/in/sriharsha-padala/?skipRedirect=true';
+  document.getElementById('resume-link').href = 'resume.pdf';
+  document.getElementById('resume-link-2').href = 'resume.pdf';
+</script>
+
+</body>
+</html>
